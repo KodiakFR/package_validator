@@ -28,12 +28,6 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextFormField(
-                validator: (value) {
-                  setState(() {
-                    print(value);
-                  });
-                  
-                },
                 keyboardType: TextInputType.emailAddress,
                 controller: _emailController,
                 decoration: const InputDecoration(label: Text('Email')),
