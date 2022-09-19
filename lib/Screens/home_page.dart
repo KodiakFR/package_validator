@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/link.dart';
+
 import 'package:validators/validators.dart';
 
 class HomePage extends StatefulWidget {
@@ -43,15 +45,29 @@ class _HomePageState extends State<HomePage> {
                     onPressed: () {
                       if (isEmail(_emailController.text) &&
                           _passwordController.text.isNotEmpty &&
-                          !_passwordController.text.contains(' ')
-                           ) {
-                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          !_passwordController.text.contains(' ')) {
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(const SnackBar(
                           content: Text('Login Success'),
                           backgroundColor: Colors.green,
                         ));
                       } else {
-                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                            content: Text('Login failed'),
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Icon(Icons.info),
+                                const Text('Login failed'),
+                                Link(
+                                    uri: Uri.parse('https://google.fr'),
+                                    target: LinkTarget.blank,
+                                    builder: (context, followlink) {
+                                      return TextButton(
+                                          onPressed: followlink,
+                                          child: const Text('more info',style: TextStyle(decoration: TextDecoration.underline),));
+                                    })
+                              ],
+                            ),
                             backgroundColor: Colors.redAccent));
                       }
                     },
